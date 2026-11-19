@@ -3,6 +3,32 @@
 Snapshot: November 19, 2026. Owner: Esther Moise.
 Repo: `esthermoise-cyber/careerbridgejourney`, branch `claude/ecstatic-tesla-hfuvmj` (no pull request opened; `main` holds only the initial commit).
 
+## 0. Update, later on November 19, 2026 (read this first; it overrides sections 2, 3 and 7 where they differ)
+
+The owner gave new launch instructions:
+
+1. Publish the new build to **careerbridgejourney.com**, not the old demo link.
+2. Redirect the old QR link (`moving-forward-pathways-demo.netlify.app/join`) to the new domain so nobody scanning existing QR codes hits a broken page.
+3. **Do not take the old app down or change it** until she has clicked through the new domain herself and said yes. Until then the old link must behave exactly as it does now.
+4. Keep the name "CareerBridge Journey" consistent everywhere, and use **no dashes in any copy** (no em or en dashes; ranges are written "4 to 12 weeks").
+
+What was done in response:
+
+- A **separate Netlify site** was created so the old one stays untouched: name `careerbridgejourney`, ID `518e906f-7604-4b04-948b-654516e3d30c`, address `https://careerbridgejourney.netlify.app`, custom domain `careerbridgejourney.com` attached. First deploy: `6aff67c43a6e504f03562882`.
+- That deploy was built **without Supabase settings**, so it shows only the "Almost ready" notice. It is a placeholder until the database is connected (section 6 is still open).
+- The domain has no DNS pointing at Netlify yet and no certificate. The owner has to add records at GoDaddy (or switch the domain to Netlify DNS).
+- Redirects and security headers moved from `netlify.toml` into `public/_redirects` and `public/_headers`, because zip uploads through the Netlify API ignore `netlify.toml`. Verified live on the new site.
+- All em and en dashes were removed from app copy; the "Nurse Pathway" sub-brand mention was removed from the track description.
+- The old site was verified still returning 200 at `/join` and was not modified.
+
+Revised order of work:
+
+1. Resolve Supabase access (section 6), run section 7 steps 1 to 5, then redeploy the new site with the two `VITE_` variables.
+2. Owner adds DNS records; wait for the certificate; confirm `https://careerbridgejourney.com` loads.
+3. Owner clicks through the new domain and gives her yes.
+4. Only then replace the old site's content with a redirect deploy: a `_redirects` file containing `/*  https://careerbridgejourney.com/:splat  301!` (so `/join` lands on `/join`). Keep old deploy `6afcd97bcd3cc8a398eed178` for rollback.
+5. In Supabase auth settings, the site URL and redirect list must include `https://careerbridgejourney.com/**`.
+
 ## 1. Status in one paragraph
 
 A complete rebuild of the app exists in this repo and passes an end-to-end browser test, but **it is not deployed**. The old app (compiled files only, source lost) is still what runs at the public QR address. The rebuild has never run against a real Supabase database: all testing used a browser-only practice database. Deployment is blocked on Supabase access to the correct project (section 6). There is an event where people will scan the QR code and sign up; treat everything in section 7 as time-critical.
