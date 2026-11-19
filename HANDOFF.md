@@ -3,6 +3,18 @@
 Snapshot: November 19, 2026. Owner: Esther Moise.
 Repo: `esthermoise-cyber/careerbridgejourney`, branch `claude/ecstatic-tesla-hfuvmj` (no pull request opened; `main` holds only the initial commit).
 
+## Current state (end of November 19, 2026; overrides everything below where they differ)
+
+- **Live:** https://careerbridgejourney.com on Netlify site `careerbridgejourney` (`518e906f-7604-4b04-948b-654516e3d30c`). Let's Encrypt certificate covers apex and www (expires Feb 17, 2027, auto renews); www and http redirect to the apex. Latest deploy `6aff77bcfd964fd3b444cd94`, built with the real Supabase settings.
+- **Old QR link redirects:** site `moving-forward-pathways-demo` now serves only `/* https://careerbridgejourney.com/:splat 302!` (deploy `6aff7abc6bd86d3fd766e3c6`), approved by the owner. It is a 302 on purpose so it can be undone; switch to 301 only with her yes. **Rollback:** restore deploy `6afcd97bcd3cc8a398eed178` on that site. The old serverless functions are no longer active in the redirect deploy.
+- **Database:** `supabase/schema.sql` applied to `xdutmdveirirrvwnpwhv`; all nine `cbj_` tables have row level security. Old `mfp_` tables untouched (6 members, 2 saved plans). The old app's logins were not in Supabase (`auth.users` was empty), so old members must sign up again.
+- **Auth settings (event mode, set by the owner in the dashboard):** email confirmation off, site URL `https://careerbridgejourney.com/`, redirect list = apex, www and `careerbridgejourney.netlify.app`, minimum password 8, sign up and sign in limit 300 per 5 minutes (not readable through the API).
+- **After the Healthcare AI Summit, only when Esther says it is over:** turn email confirmation back on and lower the sign up limit to 30. Set up a real email sender first (built in mailer allows about 2 emails per hour). Optionally remove `careerbridgejourney.netlify.app` from the redirect list (owner said yes; she makes the change in the dashboard).
+- **Supabase token** can read and run SQL but lacks `project_admin_write`, so auth settings are changed by the owner in the dashboard.
+- **Live test on the real database passed:** sign up, plan saving (including closing or reloading right after a change), posting, 9 of 9 cross member access attempts blocked, faked names, join before posting, report, block, owner moderation (see reports, pause member, remove post, messages), account deletion. Test accounts deleted.
+- **Owner access:** Esther still needs to sign up on the live site; then insert her user id into `cbj_admins` (snippet at the bottom of `schema.sql`) so Owner Tools appear.
+- **Rule from the owner:** change nothing without her own yes.
+
 ## 0. Update, later on November 19, 2026 (read this first; it overrides sections 2, 3 and 7 where they differ)
 
 The owner gave new launch instructions:
