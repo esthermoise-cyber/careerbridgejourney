@@ -16,7 +16,7 @@ export interface Pathway {
 }
 
 export const TRACKS: { id: Track; name: string; blurb: string }[] = [
-  { id: 'healthcare', name: 'Healthcare & Nursing', blurb: 'Nurse Pathway: CNA, LVN/LPN, RN, BSN and allied health.' },
+  { id: 'healthcare', name: 'Healthcare & Nursing', blurb: 'CNA, LVN/LPN, RN, BSN and allied health careers.' },
   { id: 'careers', name: 'Careers & Education', blurb: 'Change careers, earn a credential, go back to school or move up.' },
   { id: 'business', name: 'Business & Future Skills', blurb: 'Start or grow a business and build AI-ready skills.' },
 ]
@@ -25,7 +25,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'explore-nursing', track: 'healthcare', name: 'Explore Nursing',
     blurb: 'Not sure which nursing role fits? Compare CNA, LVN/LPN and RN before you commit.',
-    typical: 'About 4–8 weeks of exploring', hours: 3,
+    typical: 'About 4 to 8 weeks of exploring', hours: 3,
     steps: {
       Explore: [
         ['Compare nursing roles', 'Read what CNAs, LVN/LPNs and RNs actually do day to day, and where they work.'],
@@ -51,7 +51,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'become-cna', track: 'healthcare', name: 'Become a CNA',
     blurb: 'The fastest way into patient care. Train, pass your state competency exam and get on the registry.',
-    typical: 'Often 4–12 weeks of training, depending on your state and program', hours: 8,
+    typical: 'Often 4 to 12 weeks of training, depending on your state and program', hours: 8,
     steps: {
       Explore: [
         ['Understand the CNA role', 'CNAs help patients with daily care under nurse supervision. It is physical, people-centered work.'],
@@ -77,7 +77,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'cna-to-nursing', track: 'healthcare', name: 'CNA to Nursing',
     blurb: 'Turn your patient-care experience into an LVN/LPN or RN license.',
-    typical: 'About 1–2 years for LVN/LPN, 2–4 years for RN, plus any prerequisites', hours: 12,
+    typical: 'About 1 to 2 years for LVN/LPN, 2 to 4 years for RN, plus any prerequisites', hours: 12,
     steps: {
       Explore: [
         ['Choose your target: LVN/LPN or RN', 'CNA experience is valuable, but it does not replace formal nursing-program requirements.'],
@@ -104,7 +104,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'lvn-to-rn', track: 'healthcare', name: 'LVN/LPN to RN',
     blurb: 'Bridge from practical/vocational nursing to registered nursing.',
-    typical: 'Bridge programs often take about 1–2 years after prerequisites', hours: 14,
+    typical: 'Bridge programs often take about 1 to 2 years after prerequisites', hours: 14,
     steps: {
       Explore: [
         ['Find eligible bridge programs', 'Compare LVN/LPN-to-ADN and LVN/LPN-to-BSN options approved by your state board.'],
@@ -130,7 +130,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'rn-to-bsn', track: 'healthcare', name: 'RN to BSN',
     blurb: 'Earn your bachelor’s degree while you keep working your shifts.',
-    typical: 'Commonly about 12–24 months part-time, depending on transfer credits', hours: 10,
+    typical: 'Commonly about 12 to 24 months part-time, depending on transfer credits', hours: 10,
     steps: {
       Explore: [
         ['Select an RN-to-BSN format', 'Identify online, hybrid or local programs that fit a shift-work schedule.'],
@@ -183,7 +183,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'career-discovery', track: 'careers', name: 'Find My Direction',
     blurb: 'Not sure what is next? Get clear on your strengths and choose a direction worth pursuing.',
-    typical: 'About 3–6 weeks of focused exploring', hours: 3,
+    typical: 'About 3 to 6 weeks of focused exploring', hours: 3,
     steps: {
       Explore: [
         ['Take the career match quiz', 'Five minutes to see which kinds of work fit your interests.'],
@@ -207,7 +207,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'career-change', track: 'careers', name: 'Change Careers',
     blurb: 'Move into a new field without starting from zero.',
-    typical: 'Often 6–18 months, depending on the training gap', hours: 8,
+    typical: 'Often 6 to 18 months, depending on the training gap', hours: 8,
     steps: {
       Explore: [
         ['Name your target role', 'Be specific: a job title you could search for today.'],
@@ -234,7 +234,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'credential', track: 'careers', name: 'Earn a Certification or Trade',
     blurb: 'Skilled trades, apprenticeships and industry certifications that lead straight to work.',
-    typical: 'Certifications: weeks to months. Apprenticeships: commonly 1–5 years, paid', hours: 8,
+    typical: 'Certifications: weeks to months. Apprenticeships: commonly 1 to 5 years, paid', hours: 8,
     steps: {
       Explore: [
         ['Pick the credential or trade', 'Choose one that shows up in job postings where you want to work.'],
@@ -287,7 +287,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'better-job', track: 'careers', name: 'Land a Better Job or Promotion',
     blurb: 'Raise your income and responsibility with the skills you already have.',
-    typical: 'Often 2–6 months of consistent effort', hours: 5,
+    typical: 'Often 2 to 6 months of consistent effort', hours: 5,
     steps: {
       Explore: [
         ['Define “better”', 'Pay, schedule, growth, respect, location. Rank what matters most.'],
@@ -313,7 +313,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'start-business', track: 'business', name: 'Start a Business',
     blurb: 'Take an idea from a notebook to your first paying customers.',
-    typical: 'Many people reach a first sale in 1–6 months; building steady income takes longer', hours: 8,
+    typical: 'Many people reach a first sale in 1 to 6 months; building steady income takes longer', hours: 8,
     steps: {
       Explore: [
         ['Define the problem you solve', 'Who has the problem, how do they solve it now, and why is that not good enough?'],
@@ -341,7 +341,7 @@ export const PATHWAYS: Pathway[] = [
   {
     id: 'ai-skills', track: 'business', name: 'Build AI & Digital Skills',
     blurb: 'Use AI tools responsibly to work smarter and stay in demand.',
-    typical: 'About 4–10 weeks to become confidently productive', hours: 4,
+    typical: 'About 4 to 10 weeks to become confidently productive', hours: 4,
     steps: {
       Explore: [
         ['Pick one task to improve', 'Choose a repetitive task from your real work: emails, notes, summaries, schedules.'],

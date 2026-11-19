@@ -62,7 +62,7 @@ export default function Learn() {
           <p className="muted">Keep your own notes here. Enter only details you have confirmed with the school; costs and deadlines change.</p>
           {ws.schools.length === 0 ? <Empty title="Your shortlist is empty" text="Add two or three programs so you can compare them side by side." /> :
             <div className="schools">{ws.schools.map(s => <article key={s.id} className="school"><div className="card-head"><h3>{s.name}</h3>{s.verified ? <span className="pill good"><Check size={13} /> Approval verified</span> : <span className="pill warn">Approval not verified yet</span>}</div>
-              <dl><div><dt>Program</dt><dd>{s.program || '—'}</dd></div><div><dt>Total cost</dt><dd>{s.cost || '—'}</dd></div><div><dt>Deadline</dt><dd>{s.deadline || '—'}</dd></div></dl>
+              <dl><div><dt>Program</dt><dd>{s.program || 'Not set'}</dd></div><div><dt>Total cost</dt><dd>{s.cost || 'Not set'}</dd></div><div><dt>Deadline</dt><dd>{s.deadline || 'Not set'}</dd></div></dl>
               {s.notes && <p className="muted">{s.notes}</p>}
               <div className="row"><button className="btn ghost sm" onClick={() => setSchool(s)}>Edit</button><button className="btn ghost sm danger" onClick={() => { if (confirm(`Remove ${s.name}?`)) update(w => { w.schools = w.schools.filter(x => x.id !== s.id) }) }}><Trash2 size={15} /> Remove</button></div></article>)}</div>}
         </section>

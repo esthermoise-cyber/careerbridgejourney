@@ -51,8 +51,8 @@ export default function Admin() {
         <p className="tiny muted">Only contact members about the topics they opted into. The export includes each opt-in.</p>
         <div className="table-wrap"><table><thead><tr><th>Member</th><th>Pathway</th><th>Points</th><th>Opt-ins</th><th>Joined</th><th /></tr></thead>
           <tbody>{shown.map(m => <tr key={m.id} className={m.suspended ? 'susp' : ''}>
-            <td><b>{m.full_name || m.display_name || '—'}</b><span>{m.email}</span>{m.phone && <span>{m.phone}</span>}</td>
-            <td>{pathwayById(m.pathway)?.name ?? '—'}</td><td>{m.points}</td>
+            <td><b>{m.full_name || m.display_name || 'Not set'}</b><span>{m.email}</span>{m.phone && <span>{m.phone}</span>}</td>
+            <td>{pathwayById(m.pathway)?.name ?? 'Not set'}</td><td>{m.points}</td>
             <td>{CONSENTS.filter(c => m.consent[c.id]).map(c => c.label).join(', ') || 'None'}{interestNames(m) && <span>Interested: {interestNames(m)}</span>}</td>
             <td>{fmtDate(m.created_at)}</td>
             <td><button className={`btn ghost sm${m.suspended ? '' : ' danger'}`} onClick={() => { if (!confirm(m.suspended ? 'Restore posting for this member?' : 'Pause community posting for this member?')) return; void api.adminSetSuspended(m.id, !m.suspended).then(load).catch(e => toast(e.message)) }}>{m.suspended ? 'Restore' : 'Pause posting'}</button></td>
