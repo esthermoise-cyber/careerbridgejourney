@@ -65,16 +65,22 @@ export function AppProvider({ user, children, onSignedOut }: { user: SessionUser
   }, [api, user.id])
 
   useEffect(() => {
-    const onHide = () => { if (document.visibilityState === 'hidden') void flush() }
     const onOnline = () => void flush()
-    // Closing, reloading or leaving the page: send any unsaved change in a request that outlives the page.
+    // Closing, reloading, switching apps or leaving the page: send any unsaved change in a request
+    // that outlives the page. Browsers differ in which of these events they fire, so listen to all three;
+    // the dirty flag makes sure only one request goes out.
     const onExit = () => {
       if (!dirty.current || !latest.current) return
       window.clearTimeout(timer.current)
-      if (api.saveWorkspaceOnExit(user.id, latest.current)) dirty.current = false
+      if (api.saveWorkspaceOnExit(user.id, latest.current)) { dirty.current = false; setSave('saved') }
     }
-    document.addEventListener('visibilitychange', onHide); window.addEventListener('online', onOnline); window.addEventListener('pagehide', onExit)
-    return () => { document.removeEventListener('visibilitychange', onHide); window.removeEventListener('online', onOnline); window.removeEventListener('pagehide', onExit) }
+    const onHide = () => { if (document.visibilityState === 'hidden') onExit() }
+    document.addEventListener('visibilitychange', onHide); window.addEventListener('online', onOnline)
+    window.addEventListener('pagehide', onExit); window.addEventListener('beforeunload', onExit)
+    return () => {
+      document.removeEventListener('visibilitychange', onHide); window.removeEventListener('online', onOnline)
+      window.removeEventListener('pagehide', onExit); window.removeEventListener('beforeunload', onExit)
+    }
   }, [flush, api, user.id])
 
   const update = useCallback((fn: (w: Workspace) => void) => {
