@@ -23,6 +23,9 @@ const ok = (r: { data: any; error: unknown }): any => { if (r.error) throw frien
 
 export function createSupabaseBackend(url: string, key: string): Backend {
   const sb = createClient(url, key, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } })
+  // Latest access token, kept so a last save can be sent synchronously while the page is closing.
+  let token = ''
+  sb.auth.onAuthStateChange((_e, session) => { token = session?.access_token ?? '' })
   const toUser = (u: User | null | undefined): SessionUser | null =>
     u ? { id: u.id, email: u.email ?? '', fullName: String(u.user_metadata?.full_name ?? u.user_metadata?.name ?? '') } : null
   const uid = async () => {
@@ -87,6 +90,17 @@ export function createSupabaseBackend(url: string, key: string): Backend {
       return row?.data ?? null
     },
     async saveWorkspace(id, ws) { ok(await sb.from('cbj_workspaces').upsert({ user_id: id, data: ws })) },
+    saveWorkspaceOnExit(id, ws) {
+      if (!token) return false
+      try {
+        void fetch(`${url}/rest/v1/cbj_workspaces?on_conflict=user_id`, {
+          method: 'POST', keepalive: true,
+          headers: { apikey: key, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' },
+          body: JSON.stringify({ user_id: id, data: ws }),
+        })
+        return true
+      } catch { return false }
+    },
 
     async circleCounts() {
       const rows = ok(await sb.rpc('cbj_circle_counts')) as { circle_id: string; members: number }[]

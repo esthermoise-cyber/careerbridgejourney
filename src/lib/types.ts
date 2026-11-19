@@ -102,6 +102,8 @@ export interface Backend {
   saveProfile(id: string, patch: Partial<Profile>): Promise<void>
   loadWorkspace(id: string): Promise<Workspace | null>
   saveWorkspace(id: string, ws: Workspace): Promise<void>
+  /** Fire-and-forget save that survives the page closing. Returns false if it could not be sent. */
+  saveWorkspaceOnExit(id: string, ws: Workspace): boolean
 
   circleCounts(): Promise<Record<string, number>>
   myCircles(): Promise<string[]>

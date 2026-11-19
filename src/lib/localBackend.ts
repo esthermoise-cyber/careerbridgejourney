@@ -60,6 +60,7 @@ export function createLocalBackend(): Backend {
     async saveProfile(pid, patch) { db.profiles[pid] = { ...db.profiles[pid], ...patch }; save() },
     async loadWorkspace(wid) { return db.workspaces[wid] ?? null },
     async saveWorkspace(wid, ws) { db.workspaces[wid] = ws; save() },
+    saveWorkspaceOnExit(wid, ws) { db.workspaces[wid] = ws; save(); return true },
 
     async circleCounts() { const c: Record<string, number> = {}; db.members.forEach(([cid]) => { c[cid] = (c[cid] ?? 0) + 1 }); return c },
     async myCircles() { const u = need(); return db.members.filter(m => m[1] === u.id).map(m => m[0]) },
